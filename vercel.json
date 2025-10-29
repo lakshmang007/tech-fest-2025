@@ -1,22 +1,15 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "**/*",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/images/(.*)",
-      "dest": "/images/$1"
-    },
-    {
-      "handle": "filesystem"
-    }
-  ],
-  "github": {
-    "enabled": true,
-    "silent": true
-  }
+	"version": 2,
+	"builds": [
+		{
+			"src": "**/*",
+			"use": "@vercel/static"
+		}
+	],
+	"routes": [
+		{
+			"handle": "filesystem"
+		}
+	]
 }
+

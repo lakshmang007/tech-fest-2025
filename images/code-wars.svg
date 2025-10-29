@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#7c3aed"/>
+      <stop offset="1" stop-color="#06b6d4"/>
+    </linearGradient>
+    <style>
+      .bg{fill:url(#g)}
+      .title{font-family:Inter,Arial,Helvetica,sans-serif;font-weight:700;fill:#fff;font-size:64px}
+      .sub{font-family:Inter,Arial,Helvetica,sans-serif;fill:#e6e6e6;font-size:28px}
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="800" rx="24"/>
+  <g transform="translate(80,160)">
+    <text class="title">Code Wars</text>
+    <text class="sub" y="80">Competitive coding challenge</text>
+  </g>
+</svg>

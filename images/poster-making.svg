@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="g2" x1="0" x2="1">
+      <stop offset="0" stop-color="#fb7185"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <style>
+      .bg{fill:url(#g2)}
+      .title{font-family:Inter,Arial,Helvetica,sans-serif;font-weight:700;fill:#fff;font-size:56px}
+      .sub{font-family:Inter,Arial,Helvetica,sans-serif;fill:#f3f4f6;font-size:26px}
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="800" rx="24"/>
+  <g transform="translate(80,220)">
+    <text class="title">Poster Making</text>
+    <text class="sub" y="72">Design a tech-themed poster</text>
+  </g>
+</svg>

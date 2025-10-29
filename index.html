@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Fest 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Apply the Inter font family */
+        body {
+            font-family: 'Inter', sans-serif;
+            
+            /* Keep the dark base color */
+            background-color: #111827; /* This is Tailwind's bg-gray-900 */
+            
+            /* Keep the Figma-style dot-grid background */
+            background-image: radial-gradient(circle, rgba(71, 85, 105, 0.4) 1px, transparent 1px);
+            background-size: 20px 20px;
+
+            /* Add position relative and overflow to contain the new glow effect */
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* NEW: Add blurred "aurora" glow effect */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1; /* Place it behind the content and dot grid */
+            
+            /* Create two large, blurred gradients using the site's accent colors */
+            background: 
+                radial-gradient(circle at 15% 30%, rgba(34, 197, 94, 0.15), transparent 40%), 
+                radial-gradient(circle at 85% 70%, rgba(192, 38, 211, 0.15), transparent 40%);
+            
+            /* Add a slow pulsing animation */
+            animation: pulseGlow 10s infinite alternate;
+            filter: blur(100px);
+            transform: translateZ(0); /* Hardware acceleration */
+        }
+
+        /* NEW: Add "matrix rain" effect */
+        body::after {
+            content: "";
+            position: absolute;
+            top: -100px; /* Start off-screen */
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -2; /* Place it behind everything */
+            background-image:
+                linear-gradient(0deg, transparent 0%, rgba(0, 255, 150, 0.1) 50%, transparent 100%),
+                linear-gradient(0deg, transparent 0%, rgba(0, 255, 150, 0.1) 50%, transparent 100%);
+            background-size: 2px 100px, 3px 150px; /* Different "rain drop" sizes */
+            background-repeat: repeat;
+            animation: matrixRain 8s linear infinite;
+        }
+
+        /* NEW: Aurora pulse animation */
+        @keyframes pulseGlow {
+            from { opacity: 0.7; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1.05); }
+        }
+
+        /* NEW: Matrix rain animation */
+        @keyframes matrixRain {
+            0% { background-position: 0% 0%, 0% 0%; }
+            100% { background-position: 0% 1000px, 0% 1200px; } /* Animate y-position */
+        }
+
+        /* Simple modal fade-in */
+        #posterModal {
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        #posterModal.hidden {
+            visibility: hidden;
+            opacity: 0;
+        }
+        #posterModal.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Ensure modal image isn't excessively large on desktop */
+        #modalImage {
+            max-width: 90vw;
+            max-height: 70vh;
+        }
+    </style>
+</head>
+<body class="text-white min-h-screen antialiased">
+
+    <!-- Header Section -->
+    <header class="text-center py-8 md:py-16 relative z-10"> <!-- Add z-index to header -->
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-cyan-500">
+                Tech Fest 2025
+            </span>
+        </h1>
+        <p class="mt-3 text-lg sm:text-xl md:text-2xl font-medium text-gray-300">East west institute of technology</p>
+    </header>
+
+    <!-- Main Events Section -->
+    <main class="container mx-auto px-4 lg:px-8 py-8 relative z-10"> <!-- Add z-index to main -->
+        <!-- Grid for Tuesday and Wednesday Columns -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16">
+            
+            <!-- Tuesday Column -->
+            <div class="space-y-10">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-cyan-400">Tuesday</h2>
+                
+                <!-- Time Slot: 11:00 AM - 12:00 PM -->
+                <div class="bg-gray-800/60 backdrop-blur-sm p-6 rounded-2xl shadow-xl ring-1 ring-gray-700/50">
+                    <h3 class="text-xl sm:text-2xl font-semibold mb-4 text-gray-400">11:00 AM - 12:00 PM</h3>
+                    <div class="space-y-6">
+                        <!-- Rapid Typing Card -->
+                        <div class="bg-gray-900/70 p-5 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-cyan-500/20">
+                            <h4 class="text-2xl sm:text-3xl font-bold mb-3">Rapid Typing</h4>
+                            <p class="text-gray-400 mb-5">Show off your typing speed and accuracy.</p>
+                            <button onclick="openModal('Rapid Typing', 'images/rapid_typing.jpg')" class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold py-3 px-5 rounded-lg shadow-md hover:from-cyan-400 hover:to-blue-400 transition-all duration-300">
+                                Register Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Slot: 12:00 PM - 1:00 PM -->
+                <div class="bg-gray-800/60 backdrop-blur-sm p-6 rounded-2xl shadow-xl ring-1 ring-gray-700/50">
+                    <h3 class="text-xl sm:text-2xl font-semibold mb-4 text-gray-400">12:00 PM - 1:00 PM</h3>
+                    <div class="space-y-6">
+                        <!-- Photography Card -->
+                        <div class="bg-gray-900/70 p-5 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-cyan-500/20">
+                            <h4 class="text-2xl sm:text-3xl font-bold mb-3">Photography</h4>
+                            <p class="text-gray-400 mb-5">Capture the moments that matter.</p>
+                            <button onclick="openModal('Photography', 'images/photography.jpg')" class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold py-3 px-5 rounded-lg shadow-md hover:from-cyan-400 hover:to-blue-400 transition-all duration-300">
+                                Register Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Slot: 1:30 PM - 3:00 PM -->
+                <div class="bg-gray-800/60 backdrop-blur-sm p-6 rounded-2xl shadow-xl ring-1 ring-gray-700/50">
+                    <h3 class="text-xl sm:text-2xl font-semibold mb-4 text-gray-400">1:30 PM - 3:00 PM</h3>
+                    <div class="space-y-6">
+                        <!-- Tech Quiz Card -->
+                        <div class="bg-gray-900/70 p-5 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-cyan-500/20">
+                            <h4 class="text-2xl sm:text-3xl font-bold mb-3">Tech Quiz</h4>
+                            <p class="text-gray-400 mb-5">Test your technical knowledge.</p>
+                            <button onclick="openModal('Tech Quiz', 'images/tech-quiz.jpg')" class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold py-3 px-5 rounded-lg shadow-md hover:from-cyan-400 hover:to-blue-400 transition-all duration-300">
+                                Register Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Slot: 3:00 PM - 4:30 PM -->
+                <div class="bg-gray-800/60 backdrop-blur-sm p-6 rounded-2xl shadow-xl ring-1 ring-gray-700/50">
+                    <h3 class="text-xl sm:text-2xl font-semibold mb-4 text-gray-400">3:00 PM - 4:30 PM</h3>
+                    <!-- Grid for side-by-side events -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- BGMI Card -->
+                        <div class="bg-gray-900/70 p-5 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-cyan-500/20">
+                            <h4 class="text-2xl sm:text-3xl font-bold mb-3">BGMI</h4>
+                            <p class="text-gray-400 mb-5">Battle Royale madness.</p>
+                            <button onclick="openModal('BGMI', 'images/bgmi.jpg')" class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold py-3 px-5 rounded-lg shadow-md hover:from-cyan-400 hover:to-blue-400 transition-all duration-300">
+                                Register Now
+                            </button>
+                        </div>
+                        <!-- Free Fire Card -->
+                        <div class="bg-gray-900/70 p-5 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-cyan-500/20">
+                            <h4 class="text-2xl sm:text-3xl font-bold mb-3">Free Fire</h4>
+                            <p class="text-gray-400 mb-5">Get your squad ready.</p>
+                            <button onclick="openModal('Free Fire', 'images/freefire.jpg')" class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold py-3 px-5 rounded-lg shadow-md hover:from-cyan-400 hover:to-blue-400 transition-all duration-300">
+                                Register Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Wednesday Column -->
+            <div class="space-y-10">
+                <h2 class="text-3xl sm:text-4xl font-bold text-center text-pink-400">Wednesday</h2>
+                
+                <!-- Time Slot: 11:00 AM - 12:00 PM -->
+                <div class="bg-gray-800/60 backdrop-blur-sm p-6 rounded-2xl shadow-xl ring-1 ring-gray-700/50">
+                    <h3 class="text-xl sm:text-2xl font-semibold mb-4 text-gray-400">11:00 AM - 12:00 PM</h3>
+                    <div class="space-y-6">
+                        <!-- Debugging Card -->
+                        <div class="bg-gray-900/70 p-5 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-pink-500/20">
+                            <h4 class="text-2xl sm:text-3xl font-bold mb-3">Debugging</h4>
+                            <p class="text-gray-400 mb-5">Find the bug, fix the code.</p>
+                            <button onclick="openModal('Debugging', 'images/debugging.jpg')" class="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold py-3 px-5 rounded-lg shadow-md hover:from-pink-400 hover:to-purple-400 transition-all duration-300">
+                                Register Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Slot: 12:00 PM - 1:00 PM -->
+                <div class="bg-gray-800/60 backdrop-blur-sm p-6 rounded-2xl shadow-xl ring-1 ring-gray-700/50">
+                    <h3 class="text-xl sm:text-2xl font-semibold mb-4 text-gray-400">12:00 PM - 1:00 PM</h3>
+                    <!-- Grid for side-by-side events -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Dumb Charades Card -->
+                        <div class="bg-gray-900/70 p-5 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-pink-500/20">
+                            <h4 class="text-2xl sm:text-3xl font-bold mb-3">Dumb Charades</h4>
+                            <p class="text-gray-400 mb-5">Act out the tech terms.</p>
+                            <button onclick="openModal('Dumb Charades', 'images/dumb-charades.jpg')" class="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold py-3 px-5 rounded-lg shadow-md hover:from-pink-400 hover:to-purple-400 transition-all duration-300">
+                                Register Now
+                            </button>
+                        </div>
+                        <!-- Videography Card -->
+                        <div class="bg-gray-900/70 p-5 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-pink-500/20">
+                            <h4 class="text-2xl sm:text-3xl font-bold mb-3">Videography</h4>
+                            <p class="text-gray-400 mb-5">Create a stunning short video.</p>
+                            <button onclick="openModal('Videography', 'images/videography.jpg')" class="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold py-3 px-5 rounded-lg shadow-md hover:from-pink-400 hover:to-purple-400 transition-all duration-3D00">
+                                Register Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Time Slot: 1:30 PM - 2:30 PM -->
+                <div class="bg-gray-800/60 backdrop-blur-sm p-6 rounded-2xl shadow-xl ring-1 ring-gray-700/50">
+                    <h3 class="text-xl sm:text-2xl font-semibold mb-4 text-gray-400">1:30 PM - 2:30 PM</h3>
+                    <!-- Grid for side-by-side events -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Code Wars Card -->
+                        <div class="bg-gray-900/70 p-5 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-pink-500/20">
+                            <h4 class="text-2xl sm:text-3xl font-bold mb-3">Code Wars</h4>
+                            <p class="text-gray-400 mb-5">Competitive coding challenge.</p>
+                            <button onclick="openModal('Code Wars', 'images/code-wars.jpg')" class="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold py-3 px-5 rounded-lg shadow-md hover:from-pink-400 hover:to-purple-400 transition-all duration-300">
+                                Register Now
+                            </button>
+                        </div>
+                        <!-- Poster Making Card -->
+                        <div class="bg-gray-900/70 p-5 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-pink-500/20">
+                            <h4 class="text-2xl sm:text-3xl font-bold mb-3">Poster Making</h4>
+                            <p class="text-gray-400 mb-5">Design a tech-themed poster.</p>
+                            <button onclick="openModal('Poster Making', 'images/poster-making.jpg')" class="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold py-3 px-5 rounded-lg shadow-md hover:from-pink-400 hover:to-purple-400 transition-all duration-300">
+                                Register Now
+                            </Note>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Slot: 2:30 PM - 4:30 PM -->
+                <div class="bg-gray-800/60 backdrop-blur-sm p-6 rounded-2xl shadow-xl ring-1 ring-gray-700/50">
+                    <h3 class="text-xl sm:text-2xl font-semibold mb-4 text-gray-400">2:30 PM - 4:30 PM</h3>
+                    <div class="space-y-6">
+                        <!-- Treasure Hunt Card -->
+                        <div class="bg-gray-900/70 p-5 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-pink-500/20">
+                            <h4 class="text-2xl sm:text-3xl font-bold mb-3">Treasure Hunt</h4>
+                            <p class="text-gray-400 mb-5">Solve clues and find the treasure.</p>
+                            <button onclick="openModal('Treasure Hunt', 'images/treasure-hunt.jpg')" class="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold py-3 px-5 rounded-lg shadow-md hover:from-pink-400 hover:to-purple-400 transition-all duration-300">
+                                Register Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-10 mt-16 border-t border-gray-700 relative z-10"> <!-- Add z-index to footer -->
+        <p class="text-gray-500">&copy; 2025 East west institute of technology. All rights reserved.</p>
+    </footer>
+
+    <!-- Poster Modal -->
+    <div id="posterModal" class="hidden fixed inset-0 bg-black bg-opacity-80 backdrop-blur-md flex justify-center items-center p-4 z-50">
+        <div class="bg-gray-800 p-6 rounded-2xl shadow-2xl max-w-3xl w-full mx-auto ring-1 ring-gray-700/50">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="modalTitle" class="text-2xl font-bold text-white">Register for Event</h2>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white text-3xl">&times;</button>
+            </div>
+            
+            <!-- Modal Content -->
+            <div class="text-center">
+                <img id="modalImage" src="" alt="Event Poster" class="rounded-lg mb-6 w-full object-contain mx-auto">
+                <a id="googleFormButton" href="#" target="_blank" rel="noopener noreferrer" class="w-full block bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold py-4 px-6 rounded-lg shadow-lg hover:from-green-400 hover:to-emerald-400 transition-all duration-300 text-lg">
+                    Fill Details After Payment
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('posterModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalImage = document.getElementById('modalImage');
+        const googleFormButton = document.getElementById('googleFormButton');
+
+        // TODO: Add your main Google Form link here
+        const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSctQIU8U6O2tDV1qL_5XmbIX_WgTt-kMMRlCK2U7-xr93DW1w/viewform?usp=publish-editor"; // <--- IMPORTANT: SET THIS
+
+        googleFormButton.href = GOOGLE_FORM_URL;
+
+        function openModal(eventName, imagePath) {
+            modalTitle.textContent = `Register for ${eventName}`;
+            modalImage.src = imagePath;
+            
+            // Fallback for broken images
+            modalImage.onerror = () => {
+                modalImage.src = 'https://placehold.co/800x600/1f2937/374151?text=Poster+Not+Available';
+                modalImage.alt = 'Event poster is not available.';
+            };
+
+            modal.classList.remove('hidden');
+            modal.classList.add('visible');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            modal.classList.remove('visible');
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Close modal if user clicks outside the content box
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Close modal if user presses Escape key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+    </script>
+
+</body>
+</html>
+

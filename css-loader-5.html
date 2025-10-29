@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>css-loader-5 demo — Tech Fest</title>
+	<style>
+		:root { --bg:#0b1220; --overlay: rgba(17,24,39,0.9); --dot1:#34d399; --dot2:#06b6d4; }
+		html,body{height:100%;margin:0}
+		body{display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#071024 0%,#071a2e 100%);font-family:Inter,system-ui,Arial,sans-serif;color:#e6eef8}
+
+		/* loader container */
+		.loader-wrap{display:flex;flex-direction:column;gap:20px;align-items:center}
+		.css-loader-5{display:flex;gap:12px;align-items:center}
+		.css-loader-5 div{width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,var(--dot1),var(--dot2));opacity:.45;transform:translateY(0);animation:css-loader-5-bounce .9s infinite ease-in-out}
+		.css-loader-5 div:nth-child(1){animation-delay:0s}
+		.css-loader-5 div:nth-child(2){animation-delay:.12s}
+		.css-loader-5 div:nth-child(3){animation-delay:.24s}
+		.css-loader-5 div:nth-child(4){animation-delay:.36s}
+		.css-loader-5 div:nth-child(5){animation-delay:.48s}
+		@keyframes css-loader-5-bounce{0%{transform:translateY(0);opacity:.45}50%{transform:translateY(-18px);opacity:1}100%{transform:translateY(0);opacity:.45}}
+
+		/* small demo card */
+		.card{background:rgba(255,255,255,0.03);padding:18px;border-radius:12px;backdrop-filter:blur(6px);box-shadow:0 8px 30px rgba(2,6,23,.6);text-align:center}
+		.muted{color:#9fb3c8;font-size:14px;margin-top:6px}
+
+		/* full-screen overlay loader (optional) */
+		#site-loader{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:var(--overlay);z-index:9999}
+		#site-loader.fade-out{opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s ease}
+	</style>
+</head>
+<body>
+	<!-- Full-screen loader demo (uncomment to see overlay) -->
+	<!-- <div id="site-loader">
+		<div class="css-loader-5" aria-hidden="true">
+			<div></div><div></div><div></div><div></div><div></div>
+		</div>
+	</div> -->
+
+	<div class="loader-wrap card">
+		<h1 style="margin:0;font-size:20px">css-loader-5 demo</h1>
+		<p class="muted">Five bouncing dots loading animation (css-loader-5).</p>
+
+		<div style="height:22px"></div>
+
+		<!-- Inline loader used in the page -->
+		<div class="css-loader-5" role="status" aria-label="Loading">
+			<div></div><div></div><div></div><div></div><div></div>
+		</div>
+
+		<div style="height:18px"></div>
+		<p class="muted">Open this file locally or host it to preview the animation.</p>
+
+		<div style="height:12px"></div>
+		<button id="toggleOverlay" style="background:#0ea5a5;border:0;padding:8px 12px;border-radius:8px;color:#04202a;cursor:pointer">Toggle full-screen overlay</button>
+	</div>
+
+	<script>
+		// Toggle the full-screen overlay loader for demo purposes
+		const btn = document.getElementById('toggleOverlay');
+		btn.addEventListener('click', () => {
+			let overlay = document.getElementById('site-loader');
+			if (!overlay) {
+				overlay = document.createElement('div');
+				overlay.id = 'site-loader';
+				overlay.innerHTML = '<div class="css-loader-5" aria-hidden="true"><div></div><div></div><div></div><div></div><div></div></div>';
+				document.body.appendChild(overlay);
+				// Auto-hide after 2.5s for demo
+				setTimeout(() => {
+					overlay.classList.add('fade-out');
+					setTimeout(() => overlay.remove(), 350);
+				}, 2500);
+				return;
+			}
+			// if exists, remove with fade
+			overlay.classList.add('fade-out');
+			setTimeout(() => overlay.remove(), 350);
+		});
+	</script>
+</body>
+</html>

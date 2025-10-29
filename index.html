@@ -402,16 +402,24 @@
             }
         });
 
-        // Hide site loader when the page is fully loaded
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('site-loader');
-            if (!loader) return;
-            // Fade out then remove from DOM
-            loader.classList.add('fade-out');
-            setTimeout(() => {
-                if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
-            }, 400);
-        });
+        // Hide site loader when the page is fully loaded, but ensure it's visible for a minimum time
+        (function() {
+            const loaderShownAt = performance.now();
+            const MIN_VISIBLE_MS = 350; // make sure users see the loader briefly
+
+            window.addEventListener('load', () => {
+                const loader = document.getElementById('site-loader');
+                if (!loader) return;
+                const elapsed = performance.now() - loaderShownAt;
+                const wait = Math.max(0, MIN_VISIBLE_MS - elapsed);
+                setTimeout(() => {
+                    loader.classList.add('fade-out');
+                    setTimeout(() => {
+                        if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
+                    }, 400);
+                }, wait);
+            });
+        })();
     </script>
 
 </body>

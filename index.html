@@ -91,9 +91,55 @@
             max-width: 90vw;
             max-height: 70vh;
         }
+
+        /* css-loader-5: five bouncing dots loader */
+        #site-loader {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(17,24,39,0.85); /* dark overlay matching bg-gray-900 */
+            z-index: 60;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+        }
+        #site-loader.fade-out { opacity: 0; visibility: hidden; }
+
+        .css-loader-5 { display:flex; gap:10px; align-items:center; }
+        .css-loader-5 div {
+            width: 14px;
+            height: 14px;
+            background: linear-gradient(135deg, #34d399 0%, #06b6d4 100%); /* green -> cyan */
+            border-radius: 50%;
+            opacity: 0.45;
+            transform: translateY(0);
+            animation: css-loader-5-bounce 0.9s infinite ease-in-out;
+        }
+        .css-loader-5 div:nth-child(1) { animation-delay: 0s }
+        .css-loader-5 div:nth-child(2) { animation-delay: 0.12s }
+        .css-loader-5 div:nth-child(3) { animation-delay: 0.24s }
+        .css-loader-5 div:nth-child(4) { animation-delay: 0.36s }
+        .css-loader-5 div:nth-child(5) { animation-delay: 0.48s }
+
+        @keyframes css-loader-5-bounce {
+            0% { transform: translateY(0); opacity: 0.45; }
+            50% { transform: translateY(-14px); opacity: 1; }
+            100% { transform: translateY(0); opacity: 0.45; }
+        }
     </style>
 </head>
 <body class="text-white min-h-screen antialiased">
+
+    <!-- Site Loader (css-loader-5) -->
+    <div id="site-loader">
+        <div class="css-loader-5" aria-hidden="true">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
 
     <!-- Header Section -->
     <header class="text-center py-8 md:py-16 relative z-10"> <!-- Add z-index to header -->
@@ -354,6 +400,17 @@
             if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
                 closeModal();
             }
+        });
+
+        // Hide site loader when the page is fully loaded
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('site-loader');
+            if (!loader) return;
+            // Fade out then remove from DOM
+            loader.classList.add('fade-out');
+            setTimeout(() => {
+                if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
+            }, 400);
         });
     </script>
 

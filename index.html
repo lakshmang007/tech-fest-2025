@@ -167,10 +167,10 @@
                     <div class="space-y-6">
                         <!-- Rapid Typing Card -->
                         <div class="bg-gray-900/70 p-5 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-cyan-500/20">
-                            <img src="images/rapid_typing.jpg" alt="Rapid Typing poster" class="mb-4 w-full h-40 object-cover rounded-lg">
+                            <img src="./images/rapid_typing.jpg" alt="Rapid Typing poster" class="mb-4 w-full h-40 object-cover rounded-lg">
                             <h4 class="text-2xl sm:text-3xl font-bold mb-3">Rapid Typing</h4>
                             <p class="text-gray-400 mb-5">Show off your typing speed and accuracy.</p>
-                                <button onclick="openModal('Rapid Typing', 'images/rapid_typing.jpg')" class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold py-3 px-5 rounded-lg shadow-md hover:from-cyan-400 hover:to-blue-400 transition-all duration-300">
+                                <button onclick="openModal('Rapid Typing', './images/rapid_typing.jpg')" class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold py-3 px-5 rounded-lg shadow-md hover:from-cyan-400 hover:to-blue-400 transition-all duration-300">
                                 Register Now
                             </button>
                         </div>
@@ -357,6 +357,7 @@
         const modalTitle = document.getElementById('modalTitle');
         const modalImage = document.getElementById('modalImage');
         const googleFormButton = document.getElementById('googleFormButton');
+        const basePath = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
 
         // TODO: Add your main Google Form link here
         const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSctQIU8U6O2tDV1qL_5XmbIX_WgTt-kMMRlCK2U7-xr93DW1w/viewform?usp=publish-editor"; // <--- IMPORTANT: SET THIS
@@ -365,18 +366,19 @@
 
         function openModal(eventName, imagePath) {
             modalTitle.textContent = `Register for ${eventName}`;
-            modalImage.src = imagePath;
+            const fullImagePath = imagePath.startsWith('http') ? imagePath : basePath + imagePath;
+            modalImage.src = fullImagePath;
             
-                console.log('Loading image:', imagePath);
-                // Enhanced error handling for images
+            console.log('Loading image:', fullImagePath);
+            // Enhanced error handling for images
             modalImage.onerror = () => {
-                    console.error('Failed to load image:', imagePath);
+                console.error('Failed to load image:', fullImagePath);
                 modalImage.src = 'https://placehold.co/800x600/1f2937/374151?text=Poster+Not+Available';
                 modalImage.alt = 'Event poster is not available.';
             };
-                modalImage.onload = () => {
-                    console.log('Successfully loaded image:', imagePath);
-                };
+            modalImage.onload = () => {
+                console.log('Successfully loaded image:', fullImagePath);
+            };
 
             modal.classList.remove('hidden');
             modal.classList.add('visible');
